@@ -15,7 +15,7 @@
 
     <div class="carousel-inner">
       <!-- <div class="landingpage" style="background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url({% static 'img/cocaine.png'%}) fixed;"> -->
-      <div class="landingpage" style="background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) )">
+      <div class="landingpage" >
         <img src="{% static 'img/landingpage2.jpeg'%}" class="landingpage-img">
         <div class="time">
           <p><span class="bold">Site of the day</span> November 17,2018</p>
@@ -61,21 +61,23 @@
 </div>
 <div class="pages">
 <div class="row">
+  {% for winner in winners %}
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
     <div class="card" style="width: 40.2rem;">
-  <img class="card-img-top img-responsive" src="{% static 'img/memories.jpg'%}" alt="Card image cap" responsive>
+  <img class="card-img-top img-responsive" src="{{winner.landing_page.url}}" alt="Card image cap" responsive>
   <div class="card-body">
-    <h5 class="card-title" style="line-height:28px;">Living Memories</h5>
-    <p class="card-text">From Sweden <span class="date">November 16,2018</span></p>
+    <h5 class="card-title" style="line-height:28px;">{{winner.title}}</h5>
+    <p class="card-text">From {{winner.country}}<span class="date">{{winner.post_date}}</span></p>
   </div>
   <div class="card-footer ">
     <div class="user-image">
     <img src="{% static 'img/profpic.jpg'%}" class="gallery-image" alt=""  width=8 height=8>
-    <p style="font-size: 13px; font-weight: lighter;margin:auto; padding:2px;">DONALD</p>
+    <p style="font-size: 13px; font-weight: lighter;margin:auto; padding:2px;text-transform: uppercase;">{{winner.username}}</p>
   </div>
   </div>
 </div>
   </div>
+  {% endfor %}
 
   <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
     <div class="card" style="width: 40.2rem;">

@@ -1,10 +1,15 @@
 from django.contrib import admin
-from .models import Categories,Technologies,Colors,Countries,Project,Profile
+from .models import categories,technologies,colors,countries,Project,Profile
+
+
+class ProjectAdmin(admin.ModelAdmin):
+    filter_horizontal =('technologies','categories','colors')
+
 
 # Register your models here.
-admin.site.register(Categories)
-admin.site.register(Technologies)
-admin.site.register(Colors)
-admin.site.register(Countries)
-admin.site.register(Project)
+admin.site.register(categories)
+admin.site.register(technologies)
+admin.site.register(colors)
+admin.site.register(countries)
+admin.site.register(Project,ProjectAdmin)
 admin.site.register(Profile)
