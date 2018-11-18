@@ -21,4 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'',include('awards.urls')),
     url(r'^accounts/',include('registration.backends.hmac.urls')),
+    url(r'^logout/$',views.logout, {"next_page":'/'},name="logout"),
+    url(r'^tinymce',include('tinymce.urls')),
+
 ]
