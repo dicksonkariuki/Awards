@@ -13,14 +13,18 @@ from django.db.models import Q
 # Create your views here.
 def index(request):
     date = dt.date.today()
-    current_user = request.user
-    profile =Profile.objects.get(username=current_user)
     winners=Project.objects.all()
     caraousel = Project.objects.get(id=8)
+    donaldkiplagat='donaldkiplagat'
 
-    if current_user =='AnonymousUser':
-        return redirect('registration/login.html')
-
+    try:
+        if not request.user.is_authenticated:
+            return redirect('/accounts/login/')
+        current_user = request.user
+        profile =Profile.objects.get(username=current_user)
+        print(current_user)
+    except ObjectDoesNotExist:
+        return redirect('create-profile')
 
     return render(request,'index.html',{"winners":winners,"profile":profile,"caraousel":caraousel,"date":date})
 
