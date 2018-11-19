@@ -51,3 +51,30 @@ def new_project(request):
         form = ProjectForm()
 
     return render(request,'new_project.html',{"form":form})
+
+def directory(request):
+    date = dt.date.today()
+    current_user = request.user
+    profile =Profile.objects.get(username=current_user)
+
+    winners=Project.objects.all()
+    caraousel = Project.objects.get(id=8)
+
+    return render(request,'directory.html',{"winners":winners,"profile":profile,"caraousel":caraousel,"date":date})
+
+def profile(request):
+    current_user = request.user
+    profile =Profile.objects.get(username=current_user)
+    projects=Project.objects.filter(username=current_user)
+
+    return render(request,'profile.html',{"projects":projects,"profile":profile})
+
+def site(request,site_id):
+    current_user = request.user
+    profile =Profile.objects.get(username=current_user)
+
+    try:
+        project = Project.objects.get(id=site_id)
+    except:
+        raise ObjectDoesNotExist()
+    return render(request,"site.html",{"project":project,"profile":profile})

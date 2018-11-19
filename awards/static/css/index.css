@@ -86,6 +86,13 @@ strong{
   width: 400px;
   max-width: none;
 }
+.card-img-top-directory{
+  border-radius:0;
+  height:180px;
+  width: 320px;
+  max-width: none;
+}
+
 .card-footer{
 background-color: inherit;
 }
@@ -109,6 +116,33 @@ h5{
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
 }
+.directory-image {
+    width: calc(20.333% );
+    border-radius: 50%;
+    display: inline-flex;
+    margin-top: -50px;
+    margin-left: 120px;
+}
+.directory-image img {
+  width: 90px;
+  height: 90px;
+  background-size: cover;
+  display: block;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+}
+.profile-image {
+}
+.profile-image img {
+  margin-top: 40px;
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+}
 .pages{
   margin-top: 25px;
   display: inline-flex;
@@ -126,4 +160,22 @@ h5{
 .professional{
   font-size: 40px;
   font-weight:bold;
+}
+.horizontal{
+  display: inline-flex;
+}
+.inline{
+  margin-left:8px;
+}
+.spacing{
+  margin-bottom: 3px;
+}
+
+.screenshot-img{
+  border-radius:0;
+  height:800px;
+  width: 1350px;
+  max-width: none;
+  margin-bottom: 25px;
+  margin-left: 14%;
 }
