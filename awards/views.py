@@ -15,9 +15,12 @@ def index(request):
     date = dt.date.today()
     current_user = request.user
     profile =Profile.objects.get(username=current_user)
-
     winners=Project.objects.all()
     caraousel = Project.objects.get(id=8)
+
+    if current_user =='AnonymousUser':
+        return redirect('registration/login.html')
+
 
     return render(request,'index.html',{"winners":winners,"profile":profile,"caraousel":caraousel,"date":date})
 
