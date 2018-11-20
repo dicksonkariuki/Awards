@@ -14,10 +14,10 @@
         <p>Some information might be incorrect</p>
       {% endif %}
       <div class="text-center">
-      <div class="panel panel-default">
+      <div class="panel panel-default" style="margin-top:150px;">
 
         <div class="panel-body">
-          <form action="/accounts/register/" method="post">
+          <form action="/accounts/register/" method="post" >
 
             {% csrf_token%}
             {% bootstrap_form form %}
