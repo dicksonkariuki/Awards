@@ -10,6 +10,7 @@ urlpatterns=[
     url(r'^directory/',views.directory, name='directory'),
     url(r'^profile/',views.profile, name='profile'),
     url(r'^site/(\d+)',views.site,name='site'),
+    url(r'^search/',views.search_results, name='search_results'),
 ]
 
 if settings.DEBUG:

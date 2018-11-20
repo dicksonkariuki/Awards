@@ -9,12 +9,13 @@ import datetime as dt
 from django.http import JsonResponse
 import json
 from django.db.models import Q
+from django.db.models import Max
 
 # Create your views here.
 def index(request):
     date = dt.date.today()
     winners=Project.objects.all()
-    caraousel = Project.objects.get(id=8)
+    caraousel = Project.objects.order_by('-overall_score')[0]
     donaldkiplagat='donaldkiplagat'
 
     try:
@@ -124,8 +125,6 @@ def site(request,site_id):
 
         project.save()
 
-
-
     except:
         return None
 
@@ -141,3 +140,18 @@ def site(request,site_id):
         form = RatingForm()
 
     return render(request,"site.html",{"project":project,"profile":profile,"ratings":ratings,"form":form})
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    current_user = request.user
+    profile =Profile.objects.get(username=current_user)
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_projects = Project.search_project(search_term)
+        message=f"{search_term}"
+
+        return render(request,'search.html',{"message":message,"projects":searched_projects,"profile":profile})
+
+    else:
+        message="You haven't searched for any term"
+        return render(request,'search.html',{"message":message})

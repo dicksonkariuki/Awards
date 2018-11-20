@@ -86,79 +86,45 @@
 </div>
 
 {% if ratings %}
+<h3 class="text-center">Votes</h3>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Design</th>
+      <th scope="col">Usability</th>
 
-    <div class="row" >
-      <div class="col-md-12">
-
-{% for rating in ratings%}
-<div class="panel" >
-  <div class="panel-default" style="display:inline-flex;">
-    <div class="user-image" style="float:right; margin-right:1000px;">
-      <img src="{{profile.avatar.url}}" class="gallery-image" style="margin:auto;"  width=8 height=8>
-      <p>Username: {{rating.profile.username}}</p>
-
-    </div>
-    <div class="circle" id="circle-2">
-      <strong></strong>
-      <p class="rating">DESIGN</p>
-    </div>
-    <p>Design: {{rating.design}}</p>
-    <p>Usability: {{rating.usability}}</p>
-    <p>Creativity: {{ rating.creativity}}</p>
-    <p>Content: {{ rating.content}}</p>
-    <p>Overall Score: {{rating.overall_score}}</p>
-</div>
-</div>
-
-<script>
-var progressBarOptions = {
-	startAngle: -1.55,
-	size: -50,
-    value: {{project.design}},
-    fill: {
-		color: 'Chocolate'
-	}
-}
-
-$('.circle').circleProgress(progressBarOptions).on('circle-animation-progress', function(event, progress, stepValue) {
-	$(this).find('strong').text(String(stepValue.toFixed()));
-});
-
-$('#circle-2').circleProgress({
-	value : {{project.usability}},
-	fill: {
-		color: 'Khaki'
-	}
-});
-
-$('#circle-c').circleProgress({
-	value : {{project.creativity}},
-	fill: {
-		color: 'DarkTurquoise'
-	}
-});
-$('#circle-d').circleProgress({
-	value :{{project.content}},
-	fill: {
-		color: 'SteelBlue'
-	}
-});
-
-</script>
-
+      <th scope="col">Creativity</th>
+      <th scope="col">Content</th>
+      <th scope="col">Overall Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for rating in ratings%}
+    <tr>
+      <td>{{rating.profile.username}}</td>
+      <td>{{rating.design}}</td>
+      <td>{{rating.usability}}</td>
+      <td>{{rating.creativity}}</td>
+      <td>{{rating.content}}</td>
+      <td>{{rating.overall_score}}</td>
+    </tr>
 
 {% endfor%}
-</div>
-</div>
+</tbody>
+</table>
 {%else %}
   <p>No ratings made for this site</p>
 {% endif %}
 
-<form  action="/site/{{project.id}}" method="post" enctype="multipart/form-data">
+
+<form  action="/site/{{project.id}}" method="post" enctype="multipart/form-data" id="votes-form">
   {%csrf_token%}
 
   {% bootstrap_form form%}
-  <input type="submit" class="btn btn-success btn-lg" value="Post">
+  <div class="text-center">
+  <input id="votes-input"type="submit" class="btn btn-success btn-lg" value="Post">
+</div>
 </form>
 
 

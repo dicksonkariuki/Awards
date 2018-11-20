@@ -179,3 +179,17 @@ h5{
   margin-bottom: 25px;
   margin-left: 14%;
 }
+#votes-form{
+  width:500px;
+  margin: auto;
+}
+label{
+  margin-top: 5px;
+  display: block;
+}
+
+#votes-input{
+  width:100px;
+  height:40px;
+  justify-content: center;
+}
