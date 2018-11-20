@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
 {%endblock %}
 
 {% block content %}
@@ -46,11 +47,7 @@
             	<strong></strong>
               <p class="rating">CONTENT</p>
             </div>
-            <div class="circle" id="circle-e">
-            	<strong></strong>
-              <p class="rating">MOBILE</p>
 
-            </div>
           </div>
       </div>
     </div>
@@ -83,12 +80,87 @@
   <img class="screenshot-img img-responsive" src="{{project.screenshot2.url}}" alt="Card image cap" responsive>
   <img class="screenshot-img img-responsive" src="{{project.screenshot3.url}}" alt="Card image cap" responsive>
   <img class="screenshot-img img-responsive" src="{{project.screenshot4.url}}" alt="Card image cap" responsive>
-
 </div>
 
 
-
 </div>
+
+{% if ratings %}
+
+    <div class="row" >
+      <div class="col-md-12">
+
+{% for rating in ratings%}
+<div class="panel" >
+  <div class="panel-default" style="display:inline-flex;">
+    <div class="user-image" style="float:right; margin-right:1000px;">
+      <img src="{{profile.avatar.url}}" class="gallery-image" style="margin:auto;"  width=8 height=8>
+      <p>Username: {{rating.profile.username}}</p>
+
+    </div>
+    <div class="circle" id="circle-2">
+      <strong></strong>
+      <p class="rating">DESIGN</p>
+    </div>
+    <p>Design: {{rating.design}}</p>
+    <p>Usability: {{rating.usability}}</p>
+    <p>Creativity: {{ rating.creativity}}</p>
+    <p>Content: {{ rating.content}}</p>
+    <p>Overall Score: {{rating.overall_score}}</p>
+</div>
+</div>
+
+<script>
+var progressBarOptions = {
+	startAngle: -1.55,
+	size: -50,
+    value: {{project.design}},
+    fill: {
+		color: 'Chocolate'
+	}
+}
+
+$('.circle').circleProgress(progressBarOptions).on('circle-animation-progress', function(event, progress, stepValue) {
+	$(this).find('strong').text(String(stepValue.toFixed()));
+});
+
+$('#circle-2').circleProgress({
+	value : {{project.usability}},
+	fill: {
+		color: 'Khaki'
+	}
+});
+
+$('#circle-c').circleProgress({
+	value : {{project.creativity}},
+	fill: {
+		color: 'DarkTurquoise'
+	}
+});
+$('#circle-d').circleProgress({
+	value :{{project.content}},
+	fill: {
+		color: 'SteelBlue'
+	}
+});
+
+</script>
+
+
+{% endfor%}
+</div>
+</div>
+{%else %}
+  <p>No ratings made for this site</p>
+{% endif %}
+
+<form  action="/site/{{project.id}}" method="post" enctype="multipart/form-data">
+  {%csrf_token%}
+
+  {% bootstrap_form form%}
+  <input type="submit" class="btn btn-success btn-lg" value="Post">
+</form>
+
 
 
 
@@ -98,52 +170,39 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.1.3/circle-progress.min.js"></script>
 
 <script>
-/**
-*Exampe from https://kottenator.github.io/jquery-circle-progress/
-*/
+
 var progressBarOptions = {
 	startAngle: -1.55,
 	size: 100,
-    value: 0.75,
+    value: {{project.design}},
     fill: {
 		color: 'Chocolate'
 	}
 }
 
 $('.circle').circleProgress(progressBarOptions).on('circle-animation-progress', function(event, progress, stepValue) {
-	$(this).find('strong').text(String(stepValue.toFixed(2)));
+	$(this).find('strong').text(String((stepValue/10).toFixed(2)));
 });
 
 $('#circle-b').circleProgress({
-	value : 0.45,
+	value :  {{project.usability}},
 	fill: {
 		color: 'Khaki'
 	}
 });
 
 $('#circle-c').circleProgress({
-	value : 0.82,
+	value :{{project.creativity}},
 	fill: {
 		color: 'DarkTurquoise'
 	}
 });
 $('#circle-d').circleProgress({
-	value : 0.52,
+	value : {{project.content}},
 	fill: {
 		color: 'SteelBlue'
 	}
 });
-$('#circle-e').circleProgress({
-	value : 0.38,
-	fill: {
-		color: 'LightGreen'
-	}
-});
-
-// $.each($('.circle'), function(){
-// var price = $(this).html();
-// $(this).html(value.replace(/(\d*\.)(\d*)/,'<span style="font-size:16px;">$1</span><span style="font-size:22px;">$2</span><span style="font-size:14px;">$3</span>'));
-// });
 
 
 </script>

@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import categories,technologies,colors,countries,Project,Profile
-from .forms import ProjectForm,ProfileForm
+from .models import categories,technologies,colors,countries,Project,Profile,Rating
+from .forms import ProjectForm,ProfileForm,RatingForm
 from decouple import config,Csv
 import datetime as dt
 from django.http import JsonResponse
@@ -84,4 +84,60 @@ def site(request,site_id):
         project = Project.objects.get(id=site_id)
     except:
         raise ObjectDoesNotExist()
-    return render(request,"site.html",{"project":project,"profile":profile})
+
+    try:
+        ratings = Rating.objects.filter(project_id=site_id)
+        design = Rating.objects.filter(project_id=site_id).values_list('design',flat=True)
+        usability = Rating.objects.filter(project_id=site_id).values_list('usability',flat=True)
+        creativity = Rating.objects.filter(project_id=site_id).values_list('creativity',flat=True)
+        content = Rating.objects.filter(project_id=site_id).values_list('content',flat=True)
+        total_design=0
+        total_usability=0
+        total_creativity=0
+        total_content = 0
+        print(design)
+        for rate in design:
+            total_design+=rate
+        print(total_design)
+
+        for rate in usability:
+            total_usability+=rate
+        print(total_usability)
+
+        for rate in creativity:
+            total_creativity+=rate
+        print(total_creativity)
+
+        for rate in content:
+            total_content+=rate
+        print(total_content)
+
+        overall_score=(total_design+total_content+total_usability+total_creativity)/4
+
+        print(overall_score)
+
+        project.design = total_design
+        project.usability = total_usability
+        project.creativity = total_creativity
+        project.content = total_content
+        project.overall_score = overall_score
+
+        project.save()
+
+
+
+    except:
+        return None
+
+    if request.method =='POST':
+        form = RatingForm(request.POST,request.FILES)
+        if form.is_valid():
+            rating = form.save(commit=False)
+            rating.project= project
+            rating.profile = profile
+            rating.overall_score = (rating.design+rating.usability+rating.creativity+rating.content)/2
+            rating.save()
+    else:
+        form = RatingForm()
+
+    return render(request,"site.html",{"project":project,"profile":profile,"ratings":ratings,"form":form})

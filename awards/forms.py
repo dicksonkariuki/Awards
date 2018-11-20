@@ -20,4 +20,4 @@ class ProfileForm(forms.ModelForm):
 class RatingForm(forms.ModelForm):
     class Meta:
         model=Rating
-        exclude=['profile','project','overall_score']
+        exclude=['overall_score','profile','project']
