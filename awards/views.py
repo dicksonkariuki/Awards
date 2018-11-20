@@ -11,6 +11,10 @@ import json
 from django.db.models import Q
 from django.db.models import Max
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer,technologiesSerializer,colorsSerializer,countriesSerializer,categoriesSerializer
+
 # Create your views here.
 def index(request):
     date = dt.date.today()
@@ -158,3 +162,39 @@ def search_results(request):
     else:
         message="You haven't searched for any term"
         return render(request,'search.html',{"message":message})
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)
+
+class categoriesList(APIView):
+    def get(self, request, format=None):
+        all_categories = categories.objects.all()
+        serializers = categoriesSerializer(all_categories, many=True)
+        return Response(serializers.data)
+
+class technologiesList(APIView):
+    def get(self, request, format=None):
+        all_technologies = technologies.objects.all()
+        serializers = technologiesSerializer(all_technologies, many=True)
+        return Response(serializers.data)
+
+class colorsList(APIView):
+    def get(self, request, format=None):
+        all_colors = colors.objects.all()
+        serializers = colorsSerializer(all_colors, many=True)
+        return Response(serializers.data)
+
+class countriesList(APIView):
+    def get(self, request, format=None):
+        all_countries = countries.objects.all()
+        serializers = countriesSerializer(all_countries, many=True)
+        return Response(serializers.data)
