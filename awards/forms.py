@@ -11,7 +11,6 @@ class ProjectForm(forms.ModelForm):
         'categories':forms.CheckboxSelectMultiple(),
         }
 
-
 class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
