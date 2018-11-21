@@ -62,14 +62,15 @@
         <form class="navbar-form" role="search" action="{% url 'search_results'%}">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Search For Inspiration" name="project">
-
           </div>
         </form>
       </ul>
     </div>
   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
     <div class="user-image" style="float:right; margin-right:105px;">
-      <p style="font-size: 13px; font-weight:lighter;margin:auto;text-transform:uppercase;margin-left:-20px;">{{profile.username}}</p>
+      <a href="/user/{{profile.username}}" style="color:black;text-decoration:none;margin:auto;">
+        <p style="font-size: 13px; font-weight:lighter;margin:auto;text-transform:uppercase;margin-left:-20px;">{{profile.username}}</p>
+      </a>
       <img src="{{profile.avatar.url}}" class="gallery-image" style="margin:auto;"  width=8 height=8>
       <a href="{% url 'new-project' %}" >
         <button class="btn btn-success" style="height:70px;  margin-top: -6px;background-color:#49c5b6;border-radius:0;">SUBMIT YOUR SITE</button>

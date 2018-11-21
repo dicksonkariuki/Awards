@@ -10,6 +10,7 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from django.db.models import Max
+from django.contrib.auth.models import User
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -37,6 +38,7 @@ def index(request):
 
     return render(request,'index.html',{"winners":winners,"profile":profile,"caraousel":caraousel,"date":date,"nominees":nominees,"directories":directories,"resources":resources,"resources2":resources2})
 
+@login_required(login_url='/accounts/login/')
 def create_profile(request):
     current_user = request.user
     if request.method=='POST':
@@ -51,6 +53,7 @@ def create_profile(request):
 
     return render(request,'create_profile.html',{"form":form})
 
+@login_required(login_url='/accounts/login/')
 def new_project(request):
     current_user = request.user
     profile =Profile.objects.get(username=current_user)
@@ -78,6 +81,7 @@ def directory(request):
 
     return render(request,'directory.html',{"winners":winners,"profile":profile,"caraousel":caraousel,"date":date})
 
+@login_required(login_url='/accounts/login/')
 def profile(request):
     current_user = request.user
     profile =Profile.objects.get(username=current_user)
@@ -85,6 +89,7 @@ def profile(request):
 
     return render(request,'profile.html',{"projects":projects,"profile":profile})
 
+@login_required(login_url='/accounts/login/')
 def site(request,site_id):
     current_user = request.user
     profile =Profile.objects.get(username=current_user)
@@ -158,11 +163,23 @@ def search_results(request):
         searched_projects = Project.search_project(search_term)
         message=f"{search_term}"
 
+        print(searched_projects)
+
         return render(request,'search.html',{"message":message,"projects":searched_projects,"profile":profile})
 
     else:
         message="You haven't searched for any term"
         return render(request,'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
+def user_profile(request,username):
+    user = User.objects.get(username=username)
+    profile =Profile.objects.get(username=user)
+    projects=Project.objects.filter(username=user)
+
+    return render(request,'user-profile.html',{"projects":projects,"profile":profile})
+
+
 
 class ProfileList(APIView):
     def get(self, request, format=None):
