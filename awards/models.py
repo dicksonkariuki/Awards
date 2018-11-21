@@ -12,17 +12,40 @@ class categories(models.Model):
     def __str__(self):
         return self.categories
 
+    def save_category(self):
+        self.save()
+
+    @classmethod
+    def delete_category(cls,categories):
+        cls.objects.filter(categories=categories).delete()
+
+
 class technologies(models.Model):
     technologies = models.CharField(max_length=100)
 
     def __str__(self):
         return self.technologies
 
+    def save_technology(self):
+        self.save()
+
+    @classmethod
+    def delete_technology(cls,technologies):
+        cls.objects.filter(technologies=technologies).delete()
+
+
 class colors(models.Model):
     colors = models.CharField(max_length=100)
 
     def __str__(self):
         return self.colors
+
+    def save_color(self):
+        self.save()
+
+    @classmethod
+    def delete_color(cls,colors):
+        cls.objects.filter(colors=colors).delete()
 
 class countries(models.Model):
     countries = models.CharField(max_length=100)
@@ -32,6 +55,14 @@ class countries(models.Model):
 
     class Meta:
         ordering = ['countries']
+
+
+    def save_country(self):
+        self.save()
+
+    @classmethod
+    def delete_country(cls,countries):
+        cls.objects.filter(countries=countries).delete()
 
 class Project(models.Model):
     title = models.CharField(max_length=150)
