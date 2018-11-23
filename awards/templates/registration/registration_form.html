@@ -17,7 +17,7 @@
       <div class="panel panel-default" style="margin-top:150px;">
 
         <div class="panel-body">
-          <form action="/accounts/register/" method="post" >
+          <form action="/accounts/register/"method="post" >
 
             {% csrf_token%}
             {% bootstrap_form form %}
@@ -60,6 +60,9 @@ li{
 }
 .help-block{
   display:none;
+}
+input{
+  text-align: center;
 }
 </style>
 

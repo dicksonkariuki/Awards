@@ -48,6 +48,7 @@ def create_profile(request):
             profile.username = current_user
 
             profile.save()
+        return redirect('Index')
     else:
         form=ProfileForm()
 
