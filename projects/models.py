@@ -84,5 +84,18 @@ class Rating(models.Model):
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
 
+class colors(models.Model):
+    colors = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.colors
+
+    def save_color(self):
+        self.save()
+
+    @classmethod
+    def delete_color(cls,colors):
+        cls.objects.filter(colors=colors).delete()
+
 
 
