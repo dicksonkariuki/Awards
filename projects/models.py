@@ -98,4 +98,20 @@ class colors(models.Model):
         cls.objects.filter(colors=colors).delete()
 
 
+class countries(models.Model):
+    countries = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.countries
+
+    class Meta:
+        ordering = ['countries']
+
+
+    def save_country(self):
+        self.save()
+
+    @classmethod
+    def delete_country(cls,countries):
+        cls.objects.filter(countries=countries).delete()
 
