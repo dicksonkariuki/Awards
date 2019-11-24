@@ -62,5 +62,18 @@ class Project(models.Model):
         projects = cls.objects.filter(Q(username__username=search_term) | Q(title__icontains=search_term) | Q(country__countries=search_term) | Q(overall_score__icontains=search_term))
         return projects
 
+class technologies(models.Model):
+    technologies = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.technologies
+
+    def save_technology(self):
+        self.save()
+
+    @classmethod
+    def delete_technology(cls,technologies):
+        cls.objects.filter(technologies=technologies).delete()
+
 
 
