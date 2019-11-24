@@ -149,4 +149,67 @@ def site(request,site_id):
         form = RatingForm()
 
     return render(request,"site.html",{"project":project,"profile":profile,"ratings":ratings,"form":form})
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    current_user = request.user
+    profile =Profile.objects.get(username=current_user)
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_projects = Project.search_project(search_term)
+        message=f"{search_term}"
+
+        print(searched_projects)
+
+        return render(request,'search.html',{"message":message,"projects":searched_projects,"profile":profile})
+
+    else:
+        message="You haven't searched for any term"
+        return render(request,'search.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
+def user_profile(request,username):
+    user = User.objects.get(username=username)
+    profile =Profile.objects.get(username=user)
+    projects=Project.objects.filter(username=user)
+
+    return render(request,'user-profile.html',{"projects":projects,"profile":profile})
+
+
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
+
+class ProjectList(APIView):
+    def get(self, request, format=None):
+        all_projects = Project.objects.all()
+        serializers = ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)
+
+class categoriesList(APIView):
+    def get(self, request, format=None):
+        all_categories = categories.objects.all()
+        serializers = categoriesSerializer(all_categories, many=True)
+        return Response(serializers.data)
+
+class technologiesList(APIView):
+    def get(self, request, format=None):
+        all_technologies = technologies.objects.all()
+        serializers = technologiesSerializer(all_technologies, many=True)
+        return Response(serializers.data)
+
+class colorsList(APIView):
+    def get(self, request, format=None):
+        all_colors = colors.objects.all()
+        serializers = colorsSerializer(all_colors, many=True)
+        return Response(serializers.data)
+
+class countriesList(APIView):
+    def get(self, request, format=None):
+        all_countries = countries.objects.all()
+        serializers = countriesSerializer(all_countries, many=True)
+        return Response(serializers.data)
+
 
