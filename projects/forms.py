@@ -10,3 +10,7 @@ class ProjectForm(forms.ModelForm):
         'technologies':forms.CheckboxSelectMultiple(),
         'categories':forms.CheckboxSelectMultiple(),
         }
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        exclude=['username']
