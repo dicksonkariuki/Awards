@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from .models import categories,Profile,Rating,Project,technologies,colors,countries
 from .forms import ProjectForm,ProfileForm,RatingForm
-from decouple import config,Csv
+# from decouple import config,Csv
 import datetime as dt
 from django.http import JsonResponse
 import json
@@ -19,7 +19,7 @@ from .serializer import ProfileSerializer,ProjectSerializer,technologiesSerializ
 def index(request):
     date = dt.date.today()
     winners=Project.objects.all()[:4]
-    caraousel = Project.objects.order_by('-overall_score')[0]
+    caraousel = Project.objects.order_by('-overall_score')
     nominees=Project.objects.all()[4:8]
     directories=Project.objects.all()[8:11]
     resources=Project.objects.all()[11:15]
