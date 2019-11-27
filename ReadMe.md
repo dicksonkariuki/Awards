@@ -30,7 +30,7 @@ This web-app allows a user to create a Profile and upload a Project after which 
 | ------------- |:-------------:| -----:|
 | Create user profile    | user inputs a name and profile photo | User profile image and name displayed at the right-top of navbar |
 | User can upload a project     | Title,landingpageimage,description,link,technologies,categories,and color   |   User's project on the homepage |
-|Allows a user to view uploaded projects |Page onload  |    $1 |
+|Allows a user to view uploaded projects |Page onload  |     |
 |  Allows a user to vote on other user's projects           |Numerical scores based on design,usability,creativity,and content               | A numerical score indicating a user's average in each area    |
 
 ### Technologies Used
