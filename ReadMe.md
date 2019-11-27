@@ -1,62 +1,63 @@
 # Awwwards
+This python project is a clone of the 'awwwards' website.
 
-This python/django web-app was created as a clone of the website 'Awwwards'.Developed during Moringa Core. This is Week 11's Independent Project.
-Date: 16th November 2018
-By: Donald Kiplagat
+
+By: Dickson Kariuki
 
 ## Description
-This web-app allows a user to create a Profile,Category,Country,Technology,Color and Projects that are all under his username allowing other users to vote for them and visit the particular projects site.
+This web-app allows a user to create a Profile and upload a Project after which other users can vote after visting the projects site.
 
 ## Setup/Installation Requirements
-* Live site can be accessed from the following link https://awwards-donald.herokuapp.com/
-* Pre-configured Admin details are:
-Password: halowars54611
-Username: donaldkiplagat
+### Cloning the repository
+1. Open the terminal and enter:'git clone https://github.com/dicksonkariuki/Awards.git'
+### Installation requirements
+1. Open the cloned project folder on your IDE.
+2. Install the latest version of pip using :curl https://bootstrap.pypa.io/get-pip.py | python
+3. Activate the virtual environment using :source virtual/bin/activate
+4. Check the requirements file and install all the dependencies.
+5. Create a database and run migrations.
+### Running the application
+1. Run the command 'python3.6 manage.py runserver' to start the application
 
 ### Known Bugs
-* Elements re-arrange themselves unequally on different screen sizes.
-* Cards disarrange themselves when they're not four in a row.
-* Submit button moves to the side when a user with a long username logs in.
-
+* The user has to click the submit button and go to view site to see the uploaded project.
+* The project submit button dissaranges when a user has a long name.
 ### Behaviour Driven Development
-* The program should return all projects on the directories page<br>
-Given:All projects<br>
-When: Url is changed to directory page<br>
-Then: All projects are displayed<br>
+1. The application displays the names of all projects and their photos.
+2. Upon clicking an individual project link the user is redirected to the site page to vote.
 
-* Program should show the project with the highest number of votes on the caraousel on the home page<br>
-Given:A Project with the highest votes<br>
-When: Home page is accessed <br>
-Then: Project with highest votes is displayed.<br>
-
-* Admin site should be displayed when "admin/" url is chosen<br>
-Given: An admin url<br>
-When: User enters admin url in browser<br>
-Then: Admin Login is displayed<br>
-
-* User authentication occurs when Admin tries to Login<br>
-Given:Admin page is accessed<br>
-When: User tries to login<br>
-Then: User details are authenticated to confirm if user is an admin<br>
-
-* User session should end when logout url is chosen<br>
-Given:Logout option is given<br>
-When: User chooses logout option<br>
-Then: User session is ended<br>
-
+| Behavior      | Input         | Output|
+| ------------- |:-------------:| -----:|
+| Create user profile    | user inputs a name and profile photo | User profile image and name displayed at the right-top of navbar |
+| User can upload a project     | Title,landingpageimage,description,link,technologies,categories,and color   |   User's project on the homepage |
+|Allows a user to view uploaded projects |Page onload  |    $1 |
+|  Allows a user to vote on other user's projects           |Numerical scores based on design,usability,creativity,and content               | A numerical score indicating a user's average in each area    |
 
 ### Technologies Used
-* Atom was the source code editor of choice.
-* Git and Github were used as my local and online repositories respectively.
-* Django was used as the framework of choice
-* Heroku was used in deploying the live site
-* Postman was used in testing the API
-
-
+* Python was used as the backend languange.
+* Django framework for application administration
+* Bootstrap for styling.
+* Html to diaplay webpages
+* Django-countries library to display countries list on the admin side.
 ### Support and contact details
-* Contact me through my email: donald.k.kiplagat@gmail.com
-* The source code is also contained within the folder containing this ReadMe with comments on the code thus third-party support can be offered.
+* You can contact me via email at :dicksonkariuki4@gmail.com
+
 
 ### License
-Moringa School
-Copyright (c)2018 **Awwwards by Yours Truly-Donald Kiplagat**
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

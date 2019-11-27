@@ -76,7 +76,6 @@ INSTALLED_APPS = [
     'bootstrap3',
     'bootstrap4',
     'tinymce',
-    'rest_framework',
     'django_countries',
     'multiselectfield',
 ]
