@@ -7,7 +7,6 @@ class ProjectForm(forms.ModelForm):
         exclude=['username','post_date','design','usability','creativity','content','overall_score','avatar','country']
         widgets={
         'colors':forms.CheckboxSelectMultiple(),
-        'technologies':forms.CheckboxSelectMultiple(),
         'categories':forms.CheckboxSelectMultiple(),
         }
 

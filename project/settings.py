@@ -41,12 +41,11 @@ DEBUG = config('DEBUG',default=False,cast=bool)
 if config('MODE')=="dev":
    DATABASES = {
        'default': {
-           'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': config('DB_NAME'),
-           'USER': config('DB_USER'),
-           'PASSWORD': config('DB_PASSWORD'),
-           'HOST': config('DB_HOST'),
-           'PORT': '',
+           'ENGINE': 'django.db.backends.postgresql',
+           'NAME': 'awado',
+           'USER': 'moringa',
+           'PASSWORD': 'dickson',
+           
        }
 
    }
@@ -78,6 +77,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'tinymce',
     'rest_framework',
+    'django_countries',
+    'multiselectfield',
 ]
 
 MIDDLEWARE = [

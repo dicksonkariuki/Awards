@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from .models import categories,technologies,colors,countries,Project,Profile,Rating
+from .models import *
 from .forms import ProjectForm,ProfileForm,RatingForm
 from decouple import config,Csv
 import datetime as dt
@@ -14,14 +14,14 @@ from django.contrib.auth.models import User
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import ProfileSerializer,ProjectSerializer,technologiesSerializer,colorsSerializer,countriesSerializer,categoriesSerializer
+from .serializer import ProfileSerializer,ProjectSerializer,colorsSerializer,categoriesSerializer
 
 
 # Create your views here.
 def index(request):
     date = dt.date.today()
     winners=Project.objects.all()[:4]
-    caraousel = Project.objects.order_by('-overall_score')[0]
+    caraousel = Project.objects.order_by('-overall_score')
     nominees=Project.objects.all()[4:8]
     directories=Project.objects.all()[8:11]
     resources=Project.objects.all()[11:15]
@@ -64,7 +64,7 @@ def new_project(request):
             project = form.save(commit=False)
             project.username = current_user
             project.avatar = profile.avatar
-            project.country = profile.country
+            # project.country = profile.country
 
             project.save()
     else:
@@ -200,20 +200,10 @@ class categoriesList(APIView):
         serializers = categoriesSerializer(all_categories, many=True)
         return Response(serializers.data)
 
-class technologiesList(APIView):
-    def get(self, request, format=None):
-        all_technologies = technologies.objects.all()
-        serializers = technologiesSerializer(all_technologies, many=True)
-        return Response(serializers.data)
+
 
 class colorsList(APIView):
     def get(self, request, format=None):
         all_colors = colors.objects.all()
         serializers = colorsSerializer(all_colors, many=True)
-        return Response(serializers.data)
-
-class countriesList(APIView):
-    def get(self, request, format=None):
-        all_countries = countries.objects.all()
-        serializers = countriesSerializer(all_countries, many=True)
         return Response(serializers.data)
